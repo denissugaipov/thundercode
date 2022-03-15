@@ -1,0 +1,10 @@
+.Container {
+    @apply flex flex-col h-[100vh];
+    @apply items-center justify-center;
+    @apply font-ubuntu space-y-3;
+}
+.OpenBtn {
+    @apply bg-fuchsia-600 hover:bg-fuchsia-700;
+    @apply cursor-pointer transition-colors text-white;
+    @apply p-3 rounded-full
+}

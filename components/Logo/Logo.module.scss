@@ -1,0 +1,14 @@
+
+.LogoGroup {
+    @apply absolute w-full cursor-pointer;
+    @apply flex flex-row justify-center;
+    @apply items-center;
+    @apply font-ubuntu;
+    @apply text-2xl my-12
+}
+
+@screen sm {
+    .LogoGroup {
+        @apply w-max mx-6 my-6
+    }
+}

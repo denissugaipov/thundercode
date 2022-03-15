@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @unique @default(uuid())
+  firstname String?
+  lastname  String?
+  username  String   @unique
+  password  String
+  specify   String?
+  about     String?
+  photo     String?
+  verified  Boolean? @default(false)
+  number    String?
+  email     String?
+}
+
+// model Cocktail {
+//   id           String  @id @default(uuid())
+//   cocktailName String
+//   isAlcoholic  Boolean
+//   addByUsers   User[]  @relation("favorite_cocktails", references: [id])
+
+//   authorId String @default("1")
+//   author   User   @relation(references: [id], fields: [authorId])
+
+//   // @@map(name: "cocktails")
+// }
+
+// model User {
+//   id                String      @id @default(uuid())
+//   username          String      @unique
+//   password          String
+//   status            user_status @default(active)
+//   favoriteCocktails Cocktail[]  @relation("favorite_cocktails", references: [id])
+//   createdCocktails  Cocktail[]
+//   avatar            String?
+// }
+
+// model Image {
+//   id   String @id @default(uuid())
+//   name String
+//   blob Bytes
+// }
+
+// model Note {
+//   id      String @id @default(uuid())
+//   name    String
+//   content String
+// }
+
+// enum user_status {
+//   active
+//   suspended
+// }

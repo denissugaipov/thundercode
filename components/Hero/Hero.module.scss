@@ -1,0 +1,26 @@
+.Container {
+    @apply flex flex-col;
+    @apply items-center justify-center;
+    @apply h-[100vh] font-ubuntu;
+    @apply space-y-4;
+}
+.Logo {
+    @apply flex flex-row items-center;
+}
+.Description {
+    @apply text-slate-700 font-light text-2xl;
+}
+.Button {
+    @apply transition-colors;
+    @apply text-white w-[200px];
+    @apply py-4;
+}
+.Fuchsia {
+    @apply bg-fuchsia-600 hover:bg-fuchsia-700;
+}
+.Yellow {
+    @apply bg-yellow-600 hover:bg-yellow-700;
+}
+.ButtonGroup {
+    @apply flex flex-row space-x-3;
+}

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -14,3 +18,13 @@ a {
 * {
   box-sizing: border-box;
 }
+.uploadcare--widget__button.uploadcare--widget__button_type_open {
+        background: none;
+        color: #a8a29e;
+        border: 2px solid #a8a29e
+    }
+    .uploadcare--widget__button.uploadcare--widget__button_type_open:hover {
+      background: #c026d3;
+      color: white;
+      border-color: #c026d3;
+    }

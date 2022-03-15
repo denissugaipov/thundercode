@@ -1,0 +1,23 @@
+.Container {
+    @apply flex h-[100vh] justify-center items-center;
+    @apply font-ubuntu
+}
+.Content {
+    @apply flex flex-col space-y-4;
+}
+.Heading {
+    @apply flex w-full text-4xl;
+}
+.Actions {
+    @apply flex flex-row justify-between items-center;
+}
+.Input {
+    @apply text-lg font-light rounded-3xl border-gray-200 border-2 outline-none w-[300px] focus:border-fuchsia-500 transition-colors;
+    @apply py-3 px-6 my-1
+}
+.AuthButton {
+    @apply bg-fuchsia-600 text-white px-6 py-3 hover:bg-fuchsia-700 transition-colors
+}
+.Link {
+    @apply text-slate-500
+}

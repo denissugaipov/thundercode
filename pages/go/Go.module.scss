@@ -1,0 +1,25 @@
+.Container {
+    @apply flex justify-center;
+    @apply py-32;
+    @apply font-ubuntu;
+}
+.Content {
+    @apply flex flex-col;
+    @apply items-center w-[400px];
+}
+.Name {
+    @apply text-2xl mt-3;
+}
+.InfoBlock {
+    @apply flex flex-col w-full;
+    @apply mt-6 p-6;
+    @apply border-[1px] rounded-xl;
+}
+.VerifiedSection {
+    @apply flex flex-row items-center space-x-3;
+}
+@screen sm {
+    .Container {
+        @apply py-16
+    }
+}

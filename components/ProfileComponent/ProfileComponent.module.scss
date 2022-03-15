@@ -1,0 +1,31 @@
+.Container {
+    @apply flex justify-center h-[100vh] font-ubuntu;
+}
+
+.Input {
+    @apply text-sm font-light;
+    @apply rounded-xl border-gray-300 border-[1px];
+    @apply outline-none w-[300px] focus:border-fuchsia-500 transition-colors;
+    @apply py-2 px-6 my-1;
+}
+.Form {
+    @apply my-6 space-y-3;
+}
+.Item {
+    @apply flex flex-col;
+}
+.ItemTitle {
+    @apply font-light text-slate-700;
+}
+.ImageItem {
+    @apply flex flex-col space-y-2;
+}
+.GoQrButton {
+    @apply transition-colors;
+    @apply flex cursor-pointer rounded-full;
+    @apply px-6 py-1;
+    @apply text-white bg-slate-600 hover:bg-fuchsia-800
+}
+.SubmitBtnStyle {
+    @apply flex px-6 py-1 rounded-full text-white transition-colors;
+}
