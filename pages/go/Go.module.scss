@@ -4,16 +4,16 @@
     @apply font-ubuntu;
 }
 .Content {
-    @apply flex flex-col;
-    @apply items-center w-[400px];
+    @apply flex flex-col sm:mt-8 bg-purple-500;
+    @apply items-center w-[400px] sm:shadow-xl;
 }
 .Name {
-    @apply text-2xl mt-3;
+    @apply text-2xl text-white;
 }
 .InfoBlock {
-    @apply flex flex-col w-full;
-    @apply mt-6 p-6;
-    @apply border-[1px] rounded-xl;
+    @apply flex flex-col items-center;
+    @apply p-6 my-6 space-y-3;
+    // @apply bx/rounded-xl;
 }
 .VerifiedSection {
     @apply flex flex-row items-center space-x-3;

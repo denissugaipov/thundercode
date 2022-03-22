@@ -8,11 +8,11 @@
     @apply flex flex-row items-center;
 }
 .Description {
-    @apply text-slate-700 font-light text-2xl;
+    @apply text-slate-700 font-light sm:text-2xl;
 }
 .Button {
     @apply transition-colors;
-    @apply text-white w-[200px];
+    @apply text-white sm:w-[200px] w-[300px];
     @apply py-4 text-center
 }
 .Fuchsia {
@@ -22,5 +22,5 @@
     @apply bg-yellow-600 hover:bg-yellow-700;
 }
 .ButtonGroup {
-    @apply flex flex-row space-x-3;
+    @apply flex sm:flex-row flex-col sm:space-x-3 sm:space-y-0 space-y-3;
 }

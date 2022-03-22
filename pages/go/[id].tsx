@@ -36,7 +36,7 @@ const Card = ({ user }: UserDataObject) => {
 			<Logo />
 			<div className={s.Container}>
 				<div className={s.Content}>
-					<div>
+					<div className="mt-6">
 						{user.photo ? (
 							<Image src={user.photo} width={156} height={156} className="rounded-full object-cover" />
 						) : (
@@ -46,29 +46,29 @@ const Card = ({ user }: UserDataObject) => {
 
 					<h1 className={s.Name}>{user.firstname ? `${user.firstname} ${user.lastname}` : 'Somebody'}</h1>
 
-					<span className="text-slate-400">{user.specify}</span>
+					<span className="text-white opacity-50 mb-3">{user.specify}</span>
+					<div className="bg-slate-50 mt-3 text-center">
+						<div className={s.InfoBlock}>
+							<h1 className="text-2xl">Biography</h1>
+							<p className="text-slate-500 w-4/5 text-center">
+								{user.about ? user.about : `No information about ${user.username} bio`}
+							</p>
+						</div>
 
-					<div className={s.InfoBlock}>
-						<h1 className="text-xl">Bio</h1>
-						<span className="text-slate-500">
-							{user.about ? user.about : `No information about ${user.username} bio`}
-						</span>
+						<div className={s.InfoBlock}>
+							<h1 className="text-xl">Contact number</h1>
+							<p className="text-slate-500">
+								{user.number ? `+${user.number}` : `No information about ${user.username} number`}
+							</p>
+						</div>
+
+						<div className={s.InfoBlock}>
+							<h1 className="text-xl">E-Mail</h1>
+							<p className="text-slate-500">
+								{user.email ? user.email : `No information about ${user.username} e-mail`}
+							</p>
+						</div>
 					</div>
-
-					<div className={s.InfoBlock}>
-						<h1 className="text-xl">Contact number</h1>
-						<span className="text-slate-500">
-							{user.number ? `+${user.number}` : `No information about ${user.username} number`}
-						</span>
-					</div>
-
-					<div className={s.InfoBlock}>
-						<h1 className="text-xl">E-Mail</h1>
-						<span className="text-slate-500">
-							{user.email ? user.email : `No information about ${user.username} e-mail`}
-						</span>
-					</div>
-
 					{user.verified && (
 						<div className={s.InfoBlock}>
 							<div className={s.VerifiedSection}>
@@ -80,10 +80,10 @@ const Card = ({ user }: UserDataObject) => {
 								<a
 									className="text-sky-600 cursor-pointer"
 									onClick={() => {
-										router.push('/go/admin')
+										router.push('/go/dev')
 									}}
 								>
-									@admin
+									@thundercode
 								</a>
 							</span>
 						</div>

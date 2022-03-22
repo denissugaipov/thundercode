@@ -18,7 +18,7 @@ const Hero = () => {
 	return (
 		<div className={s.Container}>
 			<div className={s.Logo}>
-				<h1 className="text-5xl">thundercode</h1>
+				<h1 className="sm:text-5xl text-3xl">thundercode</h1>
 				<Image src="/img/logo.png" height={50} width={50} />
 			</div>
 			<h1 className={s.Description}>Create visit card with QR in 3 minutes</h1>

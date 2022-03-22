@@ -41,7 +41,7 @@ const Card = (props: IQRUserObject) => {
 					<h1>@tcode/{props.user.username}</h1>
 					<div>
 						<QRCode
-							value={`${process.env.NEXT_HOST}/go/${props.user.username}`}
+							value={`${process.env.NEXT_PUBLIC_FRONTHOST}/go/${props.user.username}`}
 							fgColor={props.user.qrForegroundColor}
 							qrStyle="dots"
 							logoImage="/img/thunder.png"

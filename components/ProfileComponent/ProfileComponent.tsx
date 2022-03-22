@@ -191,7 +191,7 @@ const ProfileComponent = ({ user }: UserDataObject) => {
 
 								<div className="flex justify-center">
 									<QRCode
-										value={`${process.env.NEXT_HOST}/go/${user.username}`}
+										value={`${process.env.NEXT_PUBLIC_HOST}/go/${user.username}`}
 										fgColor={QRColor}
 										qrStyle="dots"
 										logoImage="/img/thunder.png"
