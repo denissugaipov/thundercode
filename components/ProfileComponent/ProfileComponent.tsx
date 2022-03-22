@@ -1,15 +1,20 @@
-import Logo from '../Logo/Logo'
-import s from './ProfileComponent.module.scss'
-import { useForm } from 'react-hook-form'
-import { Widget, FileInfo } from '@uploadcare/react-widget'
+import 'react-phone-input-2/lib/style.css'
+
+import { FileInfo, Widget } from '@uploadcare/react-widget'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import React, { ChangeEvent } from 'react'
 import { useEffect, useState } from 'react'
+import { ColorResult, SwatchesPicker } from 'react-color'
+import { useForm } from 'react-hook-form'
 import { AiFillCheckCircle } from 'react-icons/ai'
 import { BiExit } from 'react-icons/bi'
 import { CgProfile } from 'react-icons/cg'
 import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
+import { QRCode } from 'react-qrcode-logo'
+
+import Logo from '../Logo/Logo'
+import s from './ProfileComponent.module.scss'
 
 interface Inputs {
 	number: string
@@ -19,6 +24,8 @@ interface Inputs {
 	image: string
 	firstname?: string
 	lastname?: string
+	qrEyeRadius: number
+	qrForegroundColor: string
 }
 
 export interface UserData {
@@ -32,6 +39,8 @@ export interface UserData {
 	verified: boolean
 	firstname?: string
 	lastname?: string
+	qrEyeRadius?: number
+	qrForegroundColor?: string
 }
 
 interface UserDataObject {
@@ -48,13 +57,19 @@ const ProfilePage = ({ user }: UserDataObject) => {
 
 const ProfileComponent = ({ user }: UserDataObject) => {
 	const router = useRouter()
+
+	const [phoneInput, setPhoneInput] = useState<string>(user.number || '')
+	const [QRColor, setQRColor] = useState<string>(user.qrForegroundColor || '')
+	const [QREyeRadius, setQREyeRadius] = useState<number>(user.qrEyeRadius || 50)
+
 	const [submitBtn, setSubmitBtn] = useState({
 		text: 'Save',
 		disabled: false,
 		bgColor: 'bg-fuchsia-600',
 	})
-	const [phoneInput, setPhoneInput] = useState<string>(user.number || '')
+
 	const { register, handleSubmit, setValue } = useForm<Inputs>()
+
 	const onSubmit = handleSubmit(async (data) => {
 		const response = await fetch('/api/update', {
 			method: 'POST',
@@ -78,30 +93,34 @@ const ProfileComponent = ({ user }: UserDataObject) => {
 			alert('Something goes wrong, try again!')
 		}
 	})
-	async function handleLogout () {
-		const response = await fetch('/api/logout')
+
+	async function handleLogout() {
+		await fetch('/api/logout')
 		router.push('/auth')
-		const result = await response.json()
 	}
+
 	const handleImage = (fileInfo: FileInfo) => {
 		setValue('image', fileInfo.cdnUrl || '')
 	}
+
 	return (
 		<>
-			{user && (
-				<>
-					<Logo />
-					<div className={s.Container}>
-						<div className="flex flex-col mt-16">
-							<ProfileLabel
-								verified={user.verified}
-								logout={handleLogout}
-								name={user.username as string}
-								photo={user.photo as string}
-							/>
-							<form onSubmit={onSubmit} className={s.Form}>
+			<Logo />
+			<div className={s.Container}>
+				<div className="flex flex-col mt-16">
+					<ProfileLabel
+						verified={user.verified}
+						logout={handleLogout}
+						name={user.username as string}
+						photo={user.photo as string}
+					/>
+					<form onSubmit={onSubmit} className={s.Form}>
+						<div className="flex sm:flex-row flex-col sm:space-x-12 sm:space-y-0 space-y-6">
+							<div>
+								<h1 className="text-xl mb-3">About you</h1>
+
 								<div className={s.Item}>
-									<span className="font-light text-slate-700">First name</span>
+									<span className={s.ItemTitle}>First name</span>
 									<input
 										{...register('firstname', { required: true })}
 										placeholder="ex. John"
@@ -109,8 +128,9 @@ const ProfileComponent = ({ user }: UserDataObject) => {
 										defaultValue={user.firstname}
 									/>
 								</div>
+
 								<div className={s.Item}>
-									<span className="font-light text-slate-700">Last name</span>
+									<span className={s.ItemTitle}>Last name</span>
 									<input
 										{...register('lastname', { required: true })}
 										placeholder="ex. Smith"
@@ -118,8 +138,9 @@ const ProfileComponent = ({ user }: UserDataObject) => {
 										defaultValue={user.lastname}
 									/>
 								</div>
+
 								<div className={s.Item}>
-									<span className="font-light text-slate-700">Contact number</span>
+									<span className={s.ItemTitle}>Contact number</span>
 									<PhoneInput
 										country={'ru'}
 										value={phoneInput}
@@ -129,8 +150,9 @@ const ProfileComponent = ({ user }: UserDataObject) => {
 										}}
 									/>
 								</div>
+
 								<div className={s.Item}>
-									<span className="font-light text-slate-700">E-mail</span>
+									<span className={s.ItemTitle}>E-mail</span>
 									<input
 										{...register('email')}
 										defaultValue={user.email}
@@ -138,8 +160,9 @@ const ProfileComponent = ({ user }: UserDataObject) => {
 										placeholder="hook@thundercode.io"
 									/>
 								</div>
+
 								<div className={s.Item}>
-									<span className="font-light text-slate-700">Tell about yourself</span>
+									<span className={s.ItemTitle}>Tell about yourself</span>
 									<textarea
 										defaultValue={user.about}
 										{...register('about')}
@@ -147,6 +170,7 @@ const ProfileComponent = ({ user }: UserDataObject) => {
 										placeholder="Describe your skills and tell about you"
 									/>
 								</div>
+
 								<div className={s.Item}>
 									<span className={s.ItemTitle}>Your specify</span>
 									<input
@@ -156,27 +180,74 @@ const ProfileComponent = ({ user }: UserDataObject) => {
 										placeholder="ex. Designer"
 									/>
 								</div>
+
 								<div className={s.ImageItem}>
 									<span className={s.ItemTitle}>Profile image</span>
 									<Widget publicKey="6aaac42ecf379fac2a76" onChange={handleImage} />
 								</div>
-								<div className="flex flex-row justify-between py-6">
-									<a onClick={() => router.push(`/qr/${user.username}`)} className={s.GoQrButton}>
-										Go to QR
-									</a>
-									<button
-										type="submit"
-										disabled={submitBtn.disabled}
-										className={`${submitBtn.bgColor} ${s.SubmitBtnStyle}`}
-									>
-										{submitBtn.text}
-									</button>
+							</div>
+							<div className="flex flex-col justify-between">
+								<h1 className="text-xl mb-3">QR code styling</h1>
+
+								<div className="flex justify-center">
+									<QRCode
+										value={`${process.env.NEXT_HOST}/go/${user.username}`}
+										fgColor={QRColor}
+										qrStyle="dots"
+										logoImage="/img/thunder.png"
+										logoOpacity={0.5}
+										logoHeight={96}
+										logoWidth={96}
+										eyeRadius={QREyeRadius}
+									/>
 								</div>
-							</form>
+
+								<div className="relative space-y-3">
+									<label htmlFor="eyeRadiusRange" className="form-label">
+										Eye radius
+									</label>
+									<input
+										type="range"
+										className={s.RangeInput}
+										id="eyeRadiusRange"
+										min={1}
+										max={15}
+										defaultValue={user.qrEyeRadius}
+										onChange={(event: ChangeEvent<HTMLInputElement>) => {
+											setQREyeRadius(parseInt(event.target.value))
+											setValue('qrEyeRadius', parseInt(event.target.value))
+										}}
+									/>
+								</div>
+
+								<div className="space-y-3">
+									<label className="form-label">Foreground color</label>
+									<SwatchesPicker
+										onChange={(color: ColorResult) => {
+											setValue('qrForegroundColor', color.hex)
+											console.log(color.hex)
+											setQRColor(color.hex)
+										}}
+									/>
+								</div>
+							</div>
 						</div>
-					</div>
-				</>
-			)}
+
+						<div className={s.ControllerButtons}>
+							<a onClick={() => router.push(`/qr/${user.username}`)} className={s.GoQrButton}>
+								Go to QR
+							</a>
+							<button
+								type="submit"
+								disabled={submitBtn.disabled}
+								className={`${submitBtn.bgColor} ${s.SubmitBtnStyle}`}
+							>
+								{submitBtn.text}
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
 		</>
 	)
 }
@@ -196,12 +267,8 @@ const ProfileLabel = ({ name, photo, logout, verified }: IProfileLabel) => {
 				<span className="text-2xl">{name}</span>
 				{verified && <AiFillCheckCircle className="text-green-700" />}
 			</div>
-			<BiExit
-				size={25}
-				onClick={logout}
-				className="text-red-700 transition-colors cursor-pointer hover:bg-red-700 hover:text-white"
-			/>
+			<BiExit size={25} onClick={logout} className={s.ExitIcon} />
 		</div>
 	)
 }
-export default ProfileComponent
+export default ProfilePage

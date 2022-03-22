@@ -1,10 +1,10 @@
 .Container {
-    @apply flex justify-center h-[100vh] font-ubuntu;
+    @apply flex justify-center h-[100vh] font-ubuntu sm:pt-6 pt-12;
 }
 
 .Input {
     @apply text-sm font-light;
-    @apply rounded-xl border-gray-300 border-[1px];
+    @apply rounded-xl bg-gray-100 border-[1px];
     @apply outline-none w-[300px] focus:border-fuchsia-500 transition-colors;
     @apply py-2 px-6 my-1;
 }
@@ -15,7 +15,7 @@
     @apply flex flex-col;
 }
 .ItemTitle {
-    @apply font-light text-slate-700;
+    @apply font-light text-slate-700 my-2;
 }
 .ImageItem {
     @apply flex flex-col space-y-2;
@@ -28,4 +28,17 @@
 }
 .SubmitBtnStyle {
     @apply flex px-6 py-1 rounded-full text-white transition-colors;
+}
+.ExitIcon {
+    @apply text-red-700 transition-colors cursor-pointer;
+    @apply hover:bg-red-700 hover:text-white;
+}
+.RangeInput {
+    @apply appearance-none bg-slate-100 rounded-full;
+    @apply w-full h-3 p-0;
+    @apply focus:outline-none focus:ring-0 focus:shadow-none;
+}
+.ControllerButtons {
+    @apply flex flex-row justify-between;
+    @apply pb-6 pt-3;
 }

@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { withSessionApiRoute } from '../../core/session'
 
-const salt = Buffer.from(process.env.NEXT_PASSWORD_SALT || '')
+import { withSessionApiRoute } from '../../core/session'
 
 async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
 	try {

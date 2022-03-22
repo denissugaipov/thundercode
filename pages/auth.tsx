@@ -1,19 +1,35 @@
-import { withSessionRoute } from '../core/session'
-import { useEffect } from 'react'
+import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
-import AuthComponent from '../components/AuthComponent/AuthComponent'
+import React from 'react'
+import { useEffect } from 'react'
 
-const AuthPage = ({ session }: any) => {
+import AuthComponent from '../components/AuthComponent/AuthComponent'
+import { withSessionRoute } from '../core/session'
+
+interface SessionUserData {
+	id: string
+	username: string
+}
+
+interface SessionUser {
+	user: SessionUserData
+}
+
+export interface ISession {
+	session: SessionUser
+}
+
+const AuthPage = ({ session }: ISession) => {
 	const router = useRouter()
 	useEffect(() => {
 		if (session.user) router.push('/profile')
 	})
-	return <>{session.username ? 'Redirecting...' : <AuthComponent />}</>
+	return <>{session.user ? 'Redirecting...' : <AuthComponent />}</>
 }
 
 export default AuthPage
 
-export const getServerSideProps = withSessionRoute(async function getUserData({ req }: any) {
+export const getServerSideProps = withSessionRoute(async ({ req }: GetServerSidePropsContext) => {
 	console.log(req)
 	return {
 		props: { session: req.session },

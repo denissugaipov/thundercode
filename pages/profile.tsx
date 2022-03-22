@@ -1,8 +1,12 @@
-import { withSessionRoute } from '../core/session'
-import prisma from '../core/prisma'
+import { GetServerSidePropsContext } from 'next'
 import { useRouter } from 'next/router'
+import React from 'react'
 import { useEffect } from 'react'
+
 import ProfileComponent from '../components/ProfileComponent/ProfileComponent'
+import prisma from '../core/prisma'
+import { withSessionRoute } from '../core/session'
+import { userSelect } from './go/[id]'
 export interface UserData {
 	id?: string
 	username?: string
@@ -17,7 +21,7 @@ export interface UserData {
 }
 
 export interface UserDataObject {
-	user: UserData
+	user: UserData | null
 }
 
 const ProfilePage = ({ user }: UserDataObject) => {
@@ -28,23 +32,11 @@ const ProfilePage = ({ user }: UserDataObject) => {
 	return <>{user ? <ProfileComponent user={user} /> : null}</>
 }
 
-export const getServerSideProps = withSessionRoute(async function getUser({ req }: any) {
+export const getServerSideProps = withSessionRoute(async ({ req }: GetServerSidePropsContext) => {
 	const session = req.session
-	console.log(req)
 	if (session && session.user) {
 		const userdata = await prisma.user.findUnique({
-			select: {
-				id: true,
-				username: true,
-				specify: true,
-				about: true,
-				email: true,
-				number: true,
-				photo: true,
-				verified: true,
-				firstname: true,
-				lastname: true,
-			},
+			select: userSelect,
 			where: { username: session.user.username },
 		})
 		return {
@@ -54,7 +46,7 @@ export const getServerSideProps = withSessionRoute(async function getUser({ req 
 		}
 	}
 	return {
-		props: { userdata: null },
+		props: { user: null },
 	}
 })
 

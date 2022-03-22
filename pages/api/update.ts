@@ -8,17 +8,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void>
 		if (req.method !== 'POST') {
 			throw new Error('Wrong method (POST needed)')
 		}
-		const dto = JSON.parse(req.body)
-		const user = await db.user.update({
+		const data = JSON.parse(req.body)
+		await db.user.update({
 			where: { username: req.session.user?.username },
 			data: {
-				specify: dto.specify,
-				number: dto.number,
-				email: dto.email,
-				about: dto.about,
-				photo: dto.image,
-				firstname: dto.firstname,
-				lastname: dto.lastname
+				specify: data.specify,
+				number: data.number,
+				email: data.email,
+				about: data.about,
+				photo: data.image,
+				firstname: data.firstname,
+				lastname: data.lastname,
+				qrEyeRadius: data.qrEyeRadius,
+				qrForegroundColor: data.qrForegroundColor,
 			},
 		})
 		res.status(200).send({ isSuccess: true })

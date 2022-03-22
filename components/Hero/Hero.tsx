@@ -1,9 +1,11 @@
 import Image from 'next/image'
-import { QRCode } from 'react-qrcode-logo'
-import { useState, useEffect } from 'react'
-import { generateSlug } from 'random-word-slugs'
-import s from './Hero.module.scss'
 import { useRouter } from 'next/router'
+import { generateSlug } from 'random-word-slugs'
+import React from 'react'
+import { useEffect, useState } from 'react'
+import { QRCode } from 'react-qrcode-logo'
+
+import s from './Hero.module.scss'
 const Hero = () => {
 	const router = useRouter()
 	const [qrValue, setQrValue] = useState<string>('thundercode')
@@ -29,7 +31,9 @@ const Hero = () => {
 				>
 					Get now
 				</button>
-				<button className={`${s.Button} ${s.Yellow}`}>Github</button>
+				<a href="https://github.com/dolsowsky/thundercode" className={`${s.Button} ${s.Yellow}`}>
+					Github
+				</a>
 			</div>
 			<QRCode
 				value={qrValue}

@@ -13,7 +13,7 @@
 .Button {
     @apply transition-colors;
     @apply text-white w-[200px];
-    @apply py-4;
+    @apply py-4 text-center
 }
 .Fuchsia {
     @apply bg-fuchsia-600 hover:bg-fuchsia-700;

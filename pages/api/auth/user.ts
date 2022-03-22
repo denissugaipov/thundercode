@@ -1,5 +1,6 @@
-import { withSessionApiRoute } from '../../../core/session'
 import type { NextApiRequest, NextApiResponse } from 'next'
+
+import { withSessionApiRoute } from '../../../core/session'
 
 export default withSessionApiRoute(async function userRoute(req: NextApiRequest, res: NextApiResponse) {
 	if (req.session.user) {

@@ -1,8 +1,10 @@
+import { useRouter } from 'next/router'
+import React from 'react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+
 import Logo from '../Logo/Logo'
 import s from './AuthComponent.module.scss'
-import { useRouter } from 'next/router'
-import { useForm } from 'react-hook-form'
-import { useState } from 'react'
 
 interface Inputs {
 	username: string
@@ -19,7 +21,6 @@ const AuthComponent = () => {
 
 	const [error, setError] = useState<boolean>(false)
 	const onSubmit = handleSubmit(async (data) => {
-		console.log(data)
 		const response = await fetch('/api/auth/login', {
 			method: 'POST',
 			body: JSON.stringify(data),

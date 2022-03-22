@@ -1,7 +1,10 @@
+import { useRouter } from 'next/router'
+import React from 'react'
+import { useForm } from 'react-hook-form'
+
 import Logo from '../Logo/Logo'
 import s from './RegisterComponent.module.scss'
-import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
+
 interface Inputs {
 	username: string
 	password: string
@@ -9,11 +12,13 @@ interface Inputs {
 
 const RegisterComponent = () => {
 	const router = useRouter()
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<Inputs>()
+
 	const onSubmit = handleSubmit(async (data) => {
 		const response = await fetch('/api/auth/register', {
 			method: 'POST',
@@ -23,9 +28,10 @@ const RegisterComponent = () => {
 		if (result.isSuccess) {
 			router.push('/auth')
 		} else {
-			alert('Something goes wrong! Try again')
+			alert('This username is already exist')
 		}
 	})
+
 	return (
 		<>
 			<Logo />
@@ -38,6 +44,7 @@ const RegisterComponent = () => {
 							<input {...register('username', { required: true })} className={s.Input} placeholder="Login" />
 							{errors.username && <span className="text-red-700">This field is required</span>}
 						</div>
+
 						<div className="flex flex-col">
 							<span className="font-light text-slate-700">Password</span>
 							<input
@@ -49,6 +56,7 @@ const RegisterComponent = () => {
 							{errors.password && <span className="text-red-700">This field is required</span>}
 						</div>
 					</div>
+
 					<div className={s.Actions}>
 						<a href="/auth" className={s.Link}>
 							Already have account?

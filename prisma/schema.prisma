@@ -11,17 +11,20 @@ datasource db {
 }
 
 model User {
-  id        String   @id @unique @default(uuid())
-  firstname String?
-  lastname  String?
-  username  String   @unique
-  password  String
-  specify   String?
-  about     String?
-  photo     String?
-  verified  Boolean? @default(false)
-  number    String?
-  email     String?
+  id                String   @id @unique @default(uuid())
+  firstname         String?
+  lastname          String?
+  username          String   @unique
+  password          String
+  specify           String?
+  about             String?
+  photo             String?
+  verified          Boolean? @default(false)
+  number            String?
+  email             String?
+  qrEyeRadius       Int      @default(30)
+  qrForegroundColor String   @default("#000")
+  qrStyleTheme      QR_STYLE @default(DOTS)
 }
 
 // model Cocktail {
@@ -58,7 +61,7 @@ model User {
 //   content String
 // }
 
-// enum user_status {
-//   active
-//   suspended
-// }
+enum QR_STYLE {
+  DOTS
+  SQUARES
+}

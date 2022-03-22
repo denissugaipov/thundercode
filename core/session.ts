@@ -1,5 +1,6 @@
 import type { IronSessionOptions } from 'iron-session'
 import { withIronSessionApiRoute, withIronSessionSsr } from 'iron-session/next'
+import { GetServerSidePropsContext,GetServerSidePropsResult, NextApiHandler,   } from 'next'
 
 export interface AuthData {
   id: string
@@ -14,12 +15,18 @@ export const sessionOptions: IronSessionOptions = {
   },
 }
 
-export function withSessionApiRoute(handler: any) {
+export function withSessionApiRoute(handler: NextApiHandler) {
   return withIronSessionApiRoute(handler, sessionOptions)
 }
 
-export function withSessionRoute(handler: any) {
-  return withIronSessionSsr(handler, sessionOptions)
+export function withSessionRoute<
+  P extends { [key: string]: unknown } = { [key: string]: unknown },
+>(
+  handler: (
+    context: GetServerSidePropsContext,
+  ) => GetServerSidePropsResult<P> | Promise<GetServerSidePropsResult<P>>,
+) {
+  return withIronSessionSsr(handler, sessionOptions);
 }
 
 declare module 'iron-session' {
