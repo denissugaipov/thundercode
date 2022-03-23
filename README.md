@@ -2,7 +2,8 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-One of projects in my portfolio. Web-application, which quickly generate QR-code with link to info-card.
+One of projects in my portfolio. Web-application, which quickly generate QR-code with link to info-card. 
+
 Stack: `NextJS / TailwindCSS + SCSS / Prisma + PostgreSQL`
 
 [Demo](https://thundercode-dolsowsky.vercel.app/)
