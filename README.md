@@ -15,8 +15,7 @@ Configure .env file: (.env.example exist)
 `DATABASE_URL` - path for prisma connection with database
 `postgresql://user@localhost:port/database`
 
-`NEXT_PUBLIC_HOST` - URL for 'go' and 'qr' routes:
-```${process.env.NEXT_PUBLIC_HOST}/go/${props.user.username}```
+`NEXT_PUBLIC_HOST` - URL for 'go' and 'qr' routes, default: [http://localhost:3000](http://localhost:3000)
 
 ``NEXT_PASSWORD_SALT`` - Salt for argon2 passsword encryption & descryption
 [argon2 hash generator](https://argon2.online/)
